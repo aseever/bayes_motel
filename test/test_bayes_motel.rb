@@ -1,7 +1,7 @@
 require 'helper'
 
 class TestBayesMotel < Test::Unit::TestCase
-  
+
   should "allow basic training" do
     c = BayesMotel::Corpus.new('email')
     tweets.each do |tweet|
@@ -10,7 +10,7 @@ class TestBayesMotel < Test::Unit::TestCase
     c.cleanup
     assert_equal tweets.size, c.total_count
   end
-  
+
   should "allow big training" do
     c = BayesMotel::Corpus.new('email')
     tweets(2000).each do |tweet|
@@ -19,9 +19,9 @@ class TestBayesMotel < Test::Unit::TestCase
     c.cleanup
     assert_equal tweets.size, c.total_count
   end
-  
+
   private
-  
+
   def tweets(n=100)
     @tweets ||= begin
       t = []
