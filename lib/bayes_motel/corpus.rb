@@ -4,8 +4,8 @@ module BayesMotel
       @persistence = persistence
     end
     def train(doc, category, id=0)
-      id == 0 ? id = @persistence.total_count : old_category = @persistence.document_category(id) 
-      if old_category 
+      id == 0 ? id = @persistence.total_count : old_category = @persistence.document_category(id)
+      if old_category
         if old_category.to_s != category.to_s
           @persistence.edit_document(id, category)
           _training(doc,old_category, "negative")
@@ -51,7 +51,7 @@ module BayesMotel
         when Hash
           _training(v, category, polarity, "#{name}_#{k}")
         else
-          @persistence.save_training(category, "#{name}_#{k}", v, polarity) 
+          @persistence.save_training(category, "#{name}_#{k}", v, polarity)
         end
       end
     end

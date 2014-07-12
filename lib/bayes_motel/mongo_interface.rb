@@ -31,10 +31,10 @@ module BayesMotel
         doc = BayesMotel::Mongo::RawDocument.first(:conditions=>{:doc_id=>doc_id,:classifier=>@classifier.id} )
         doc ? BayesMotel::Mongo::Category.find(doc.category).name : nil
       end
-      def destroy_classifier 
+      def destroy_classifier
         BayesMotel::Mongo::Node.all(:classifier=>@classifier.id).each do |n| n.destroy end
         BayesMotel::Mongo::Category.all(:classifier=>@classifier.id).each do |c| c.destroy end
-        BayesMotel::Mongo::RawDocument.all(:classifier=>@classifier.id).each do |r| r.destroy end 
+        BayesMotel::Mongo::RawDocument.all(:classifier=>@classifier.id).each do |r| r.destroy end
         @classifier.destroy
       end
       def destroy_document(doc_id)
@@ -48,9 +48,9 @@ module BayesMotel
       def total_count
         @classifier.total_count
       end
-      
+
       private
-      
+
       def create_category(category_name)
        category = BayesMotel::Mongo::Category.new(:classifier=>@classifier.id, :name=>category_name)
        category.save
@@ -69,7 +69,7 @@ module BayesMotel
      def cat_name(id)
        BayesMotel::Mongo::Category.find(id).name
      end
-     
+
     end
   end
 end

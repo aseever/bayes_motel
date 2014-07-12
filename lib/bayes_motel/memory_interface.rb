@@ -5,7 +5,7 @@ module BayesMotel
         @classifier = {:name=>name,:data=>{},:total_count=>0}
         @documents = {}
       end
-      def delete 
+      def delete
         @classifier = {:name=>'',:data=>{},:total_count=>0}
       end
       def increment_total
@@ -18,10 +18,10 @@ module BayesMotel
         @classifier[:data][node]
       end
       def save_training(category, node, score, polarity)
-        incrementer = polarity == "positive" ? 1 : -1 
+        incrementer = polarity == "positive" ? 1 : -1
         #If we haven't seen this v, we always treat polarity as positive.
         #Make it look like this: {@classifier=>{:data=>{node=>{category=>{score=>count,otherscore=>othercount}}}}
-        #score/count clarification: score can be more than 1 if you have multiple incidences in the same doc. 
+        #score/count clarification: score can be more than 1 if you have multiple incidences in the same doc.
         #Count is the number of times we've seen that particular incidence.
         @classifier[:data][node] ? @classifier[:data][node][category] ? @classifier[:data][node][category][score] ? @classifier[:data][node][category][score] += incrementer : @classifier[:data][node][category].store(score,1) : @classifier[:data][node].store(category, {score=>1}) :  @classifier[:data].store(node, {category, {score=>1}})
       end
@@ -35,7 +35,7 @@ module BayesMotel
         @documents[doc_id]
       end
       def destroy_document(doc_id)
-      #call BayesMotel::Corpus.destroy_document in order to decrement the training corpus - this method only destroys the document link itself  
+      #call BayesMotel::Corpus.destroy_document in order to decrement the training corpus - this method only destroys the document link itself
         @documents.delete(doc_id)
       end
       def destroy_classifier
@@ -55,7 +55,7 @@ module BayesMotel
             score_hash.each do |score, count|
               count.times do
                 @mongo.save_training(category_name, node_name, score, "positive")
-              end  
+              end
             end
           end
         end
